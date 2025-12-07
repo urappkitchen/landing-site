@@ -1,0 +1,69 @@
+# .gitignore for Hugo project with Node tooling
+# Prevent local build artifacts, caches and IDE files from being committed
+
+# Node
+node_modules/
+.npm/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.tmp
+
+# Build outputs
+/public/
+/resources/_gen/
+.hugo_build.lock
+hugo_stats.json
+
+# Common build dirs
+dist/
+build/
+.tmp/
+tmp/
+
+# Caches
+.cache/
+.sass-cache/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.iml
+*.sublime-workspace
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+
+# Temporary and swapfiles
+*~
+*.swp
+.#*
+._*
+
+# Test and coverage
+coverage/
+coverage-*.json
+
+# Other
+*.seed
+*.pid
+*.gz
+
+# If you want to commit your built `public/` (for gh-pages or similar), remove the `/public/` line above or track it explicitly
