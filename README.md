@@ -37,7 +37,7 @@ Welcome! This repository hosts the UrAppKitchen landing site, built with [Hugo](
 
 ### 1. Branching Strategy
 - **Base Branch**: `dev` (Always branch from here, do not commit directly).
-- **Production Branch**: `master` (Do not commit directly).
+- **Production Branch**: `main` (Do not commit directly).
 - **Short-lived Branches**:
 Contributors must create their own short-lived branch for every PR based on `dev`.
 
@@ -74,7 +74,7 @@ We use specific prefixes for commit messages:
 - Push your branch: `git push -u origin <username>/my-new-post`
 - Open a PR targeting **`dev`**, name it properly so people know what is this set of commits doing.
 - Ensure the checklist (meta data, images, links) is complete.
-- The maintainers will merge `dev` into `master` when suitable
+- The maintainers will merge `dev` into `main` when suitable
 
 ## 🛠 Troubleshooting
 - **Content not showing?** Check if `draft: true` in the front matter.
