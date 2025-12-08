@@ -3,7 +3,7 @@
 <!-- banner -->
 {{ with .Params.banner }}
 {{ if .enable }}
-<section class="slider {{ if .bg_overlay }}overly{{ end }}" style="background-image: url('{{ .bg_image | relURL }}');">
+<section class="slider {{ if .bg_overlay }}overly{{ end }}" style="background-image: url('{{ partial "bg-image-process.html" (dict "imagePath" .bg_image "width" "1920" "context" $) }}');">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -41,7 +41,7 @@
       </div>
       <div class="col-md-5 col-sm-12">
         <div class="block">
-          <img src="{{ .image | relURL }}" class="img-responsive" alt="Img">
+          {{ partial "image-process.html" (dict "imagePath" .image "alt" "About Image" "class" "img-responsive" "width" "600" "context" $) }}
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
 <!-- portfolio -->
 {{ with .Params.portfolio }}
 {{ if .enable }}
-<section class="feature bg-2" style="background-image: url('{{ .bg_image | relURL }}')">
+<section class="feature bg-2" style="background-image: url('{{ partial "bg-image-process.html" (dict "imagePath" .bg_image "width" "1920" "context" $) }}')">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-6">
@@ -118,7 +118,7 @@
               <i class="fas fa-quote-left"></i>
               {{ with .content }}{{ . | $.Page.RenderString (dict "display" "block") }}{{ end }}
               <div class="user">
-                <img src="{{ .image | relURL }}" alt="client">
+                {{ partial "image-process.html" (dict "imagePath" .image "alt" "client" "width" "150" "context" $) }}
                 <p><span>{{ .name | markdownify }}</span> {{ .designation | markdownify }}</p>
               </div>
             </div>

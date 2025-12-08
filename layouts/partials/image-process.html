@@ -1,0 +1,69 @@
+{{/*
+  Image Processing Partial for Automatic WebP Optimization
+  
+  Usage: {{ partial "image-process.html" (dict "imagePath" .Params.image "alt" .Title "class" "img-responsive" "width" "800" "context" .) }}
+  
+  Parameters:
+  - imagePath: Path to the image (required)
+  - alt: Alt text for the image (optional)
+  - class: CSS class for the image (optional)
+  - width: Desired width for resize (optional, default: original)
+  - height: Desired height for resize (optional)
+  - context: Page context (.) - required for resource lookup
+*/}}
+
+{{ $imagePath := .imagePath }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $width := .width | default "" }}
+{{ $height := .height | default "" }}
+{{ $context := .context }}
+
+{{ if $imagePath }}
+  {{ $image := "" }}
+  
+  {{/* Try to get image from assets */}}
+  {{ if fileExists (add "assets/" $imagePath) }}
+    {{ $image = resources.Get $imagePath }}
+  {{ end }}
+  
+  {{/* If image exists in assets, process it */}}
+  {{ if $image }}
+    {{ $processedImage := $image }}
+    {{ $fallbackImage := $image }}
+    
+    {{/* Check if it's not a GIF or SVG (which shouldn't be converted to WebP) */}}
+    {{ $ext := path.Ext $image }}
+    {{ if and (ne $ext ".gif") (ne $ext ".svg") }}
+      
+      {{/* Build resize options */}}
+      {{ $options := "" }}
+      {{ if and $width $height }}
+        {{ $options = printf "%sx%s webp q80" $width $height }}
+      {{ else if $width }}
+        {{ $options = printf "%sx webp q80" $width }}
+      {{ else }}
+        {{ $options = "webp q80" }}
+      {{ end }}
+      
+      {{/* Process image to WebP */}}
+      {{ $processedImage = $image.Resize $options }}
+      
+      {{/* Create fallback image (same size, but original format) */}}
+      {{ $fallbackOptions := replace $options "webp " "" }}
+      {{ $fallbackImage = $image.Resize $fallbackOptions }}
+      
+      {{/* Output picture element with WebP and fallback */}}
+      <picture>
+        <source srcset="{{ $processedImage.RelPermalink }}" type="image/webp">
+        <img src="{{ $fallbackImage.RelPermalink }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy" decoding="async"{{ if $processedImage.Width }} width="{{ $processedImage.Width }}"{{ end }}{{ if $processedImage.Height }} height="{{ $processedImage.Height }}"{{ end }}>
+      </picture>
+    {{ else }}
+      {{/* For GIF and SVG, output as-is */}}
+      <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy" decoding="async">
+    {{ end }}
+  {{ else }}
+    {{/* Fallback to static image if not found in assets */}}
+    <img src="{{ $imagePath | relURL }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy" decoding="async">
+  {{ end }}
+{{ end }}
