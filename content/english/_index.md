@@ -4,11 +4,11 @@ banner:
   enable: true
   bg_image: "images/slider-bg.jpg"
   bg_overlay: true
-  title: "A Digital Marketing <br/> & Design Agency"
-  content: "We love the Web and the work we do.We work closely with our clients to deliver  the best possible solutions for their needs"
+  title: "An Innovative & Problem-<br/> Solving APP Foundry"
+  content: "We believe in efficiency and convenience in small spaces."
   button:
     enable: true
-    label: "Discover Our Project"
+    label: "Our Current Projects"
     link: "project/"
 
 ############################# About #################################
