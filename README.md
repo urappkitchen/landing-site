@@ -76,6 +76,21 @@ We use specific prefixes for commit messages:
 - Ensure the checklist (meta data, images, links) is complete.
 - The maintainers will merge `dev` into `main` when suitable
 
+### 5. Post-Merge Cleanup
+GitHub automatically deletes merged branches. To keep your local repo clean:
+
+1. **Enable auto-pruning** (one-time setup):
+   ```bash
+   git config --global fetch.prune true
+   ```
+
+2. **Delete local branches** that are gone on remote:
+   ```bash
+   git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -r git branch -d
+   ```
+
+3. **If you are using GitHub in VS Code** enable pruning on fetch in Settings.
+
 ## 🛠 Troubleshooting
 - **Content not showing?** Check if `draft: true` in the front matter.
 - **Broken images?** Ensure images are in `static/images/` and referenced correctly (e.g., `image: "images/blog/pic.jpg"`).
