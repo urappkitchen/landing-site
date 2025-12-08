@@ -39,11 +39,11 @@
       {{/* Build resize options */}}
       {{ $options := "" }}
       {{ if and $width $height }}
-        {{ $options = printf "%sx%s webp q80" $width $height }}
+        {{ $options = printf "%sx%s webp q85" $width $height }}
       {{ else if $width }}
-        {{ $options = printf "%sx webp q80" $width }}
+        {{ $options = printf "%sx webp q85" $width }}
       {{ else }}
-        {{ $options = "webp q80" }}
+        {{ $options = "webp q85" }}
       {{ end }}
       
       {{/* Process image to WebP */}}

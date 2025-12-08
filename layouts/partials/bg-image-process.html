@@ -31,7 +31,7 @@
     {{/* Check if it's not a GIF or SVG */}}
     {{ if and (ne $ext ".gif") (ne $ext ".svg") }}
       {{/* Build resize options for WebP */}}
-      {{ $options := printf "%sx webp q80" $width }}
+      {{ $options := printf "%sx webp q85" $width }}
       
       {{/* Process image to WebP */}}
       {{ $processedImage := $image.Resize $options }}
