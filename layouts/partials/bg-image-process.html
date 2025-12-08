@@ -1,0 +1,49 @@
+{{/*
+  Background Image Processing Partial for Automatic WebP Optimization
+  
+  Usage: {{ partial "bg-image-process.html" (dict "imagePath" .Params.bg_image "width" "1920" "context" .) }}
+  
+  Parameters:
+  - imagePath: Path to the background image (required)
+  - width: Desired width for resize (optional, default: 1920)
+  - context: Page context (.) - required for resource lookup
+  
+  Returns: URL of the optimized image (WebP if available, fallback otherwise)
+*/}}
+
+{{ $imagePath := .imagePath }}
+{{ $width := .width | default "1920" }}
+{{ $context := .context }}
+{{ $resultURL := "" }}
+
+{{ if $imagePath }}
+  {{ $image := "" }}
+  
+  {{/* Try to get image from assets */}}
+  {{ if fileExists (add "assets/" $imagePath) }}
+    {{ $image = resources.Get $imagePath }}
+  {{ end }}
+  
+  {{/* If image exists in assets, process it */}}
+  {{ if $image }}
+    {{ $ext := path.Ext $image }}
+    
+    {{/* Check if it's not a GIF or SVG */}}
+    {{ if and (ne $ext ".gif") (ne $ext ".svg") }}
+      {{/* Build resize options for WebP */}}
+      {{ $options := printf "%sx webp q85" $width }}
+      
+      {{/* Process image to WebP */}}
+      {{ $processedImage := $image.Resize $options }}
+      {{ $resultURL = $processedImage.RelPermalink }}
+    {{ else }}
+      {{/* For GIF and SVG, output as-is */}}
+      {{ $resultURL = $image.RelPermalink }}
+    {{ end }}
+  {{ else }}
+    {{/* Fallback to static image if not found in assets */}}
+    {{ $resultURL = $imagePath | relURL }}
+  {{ end }}
+{{ end }}
+
+{{ return $resultURL }}

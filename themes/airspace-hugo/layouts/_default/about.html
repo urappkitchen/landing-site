@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="about-img">
-          <img class="img-responsive" src="{{ .image | relURL }}">
+          {{ partial "image-process.html" (dict "imagePath" .image "alt" "About Image" "class" "img-responsive" "width" "600" "context" $) }}
         </div>
       </div>
       <div class="col-md-6">
@@ -80,7 +80,7 @@
               <i class="fas fa-quote-left"></i>
               {{ with .content }}<p>"{{ . | markdownify }}"</p>{{ end }}
               <div class="user">
-                {{ with .image }}<img src="{{ . | relURL }}" alt="client">{{ end }}
+                {{ with .image }}{{ partial "image-process.html" (dict "imagePath" . "alt" "client" "width" "150" "context" $) }}{{ end }}
                 <p><span>{{ .name | markdownify }}</span> {{ .designation | markdownify }}</p>
               </div>
             </div>
