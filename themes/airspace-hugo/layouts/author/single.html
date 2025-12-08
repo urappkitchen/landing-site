@@ -48,7 +48,7 @@
           <div class="post-thumb">
             {{ if isset .Params "image" -}}
             <a href="{{ .RelPermalink }}">
-              <img class="img-responsive" src="{{ .Params.image | relURL }}" alt="{{ .Title }}">
+              {{ partial "image-process.html" (dict "imagePath" .Params.image "alt" .Title "class" "img-responsive" "width" "600" "context" .) }}
             </a>
             {{- end }}
           </div>

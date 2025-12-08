@@ -1,4 +1,4 @@
-<section class="page-title bg-2" style="background-image: url('{{ .Params.bg_image | relURL }}');">
+<section class="page-title bg-2" style="background-image: url('{{ partial "bg-image-process.html" (dict "imagePath" .Params.bg_image "width" "1920" "context" .) }}');">
   <div class="container">
     <div class="row">
       <div class="col-md-12">

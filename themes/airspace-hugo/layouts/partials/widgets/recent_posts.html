@@ -4,7 +4,7 @@
     <div class="media">
       <a class="pull-left" href="{{ .RelPermalink }}">
         {{ if isset .Params "image" }}
-        <img class="media-object" src="{{ .Params.image | relURL }}" alt="{{ .Title }}">
+        {{ partial "image-process.html" (dict "imagePath" .Params.image "alt" .Title "class" "media-object" "width" "150" "context" .) }}
         {{ end }}
       </a>
       <div class="media-body">
